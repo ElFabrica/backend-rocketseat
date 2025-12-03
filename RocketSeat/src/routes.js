@@ -1,0 +1,28 @@
+import { ParseRoutePath } from "./utils/parseRoutePath.js";
+
+export const routes = [
+  {
+    method: "GET",
+    path: "/products",
+    controller: (request, response) => {
+      return response.end(JSON.stringify(request.query));
+    },
+  },
+  {
+    method: "POST",
+    path: "/products",
+    controller: (request, response) => {
+      return response.writeHead(201).end(JSON.stringify(request.body));
+    },
+  },
+  {
+    method: "DELETE",
+    path: "/products/:id",
+    controller: (request, response) => {
+      return response.end(`Produto de id ${request.params.id} removido`);
+    },
+  },
+].map((route) => ({
+  ...route,
+  path: ParseRoutePath(route.path),
+}));
