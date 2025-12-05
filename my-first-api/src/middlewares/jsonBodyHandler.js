@@ -9,7 +9,6 @@ export async function jsonBodyHandlder(request, response) {
   try {
     //Concatena os chunks e converter para string. Em seguida, converte a string para JSON.
     request.body = JSON.parse(Buffer.concat(buffers).toString());
-    console.log(request.body);
   } catch (error) {
     request.body = null;
   }

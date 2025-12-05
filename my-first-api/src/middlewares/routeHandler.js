@@ -3,7 +3,6 @@ import { routes } from "../routes.js";
 import { ExtractQueryParams } from "../utils/extract-query-params.js";
 
 const database = new Database();
-
 export function routeHandler(request, response) {
   const route = routes.find((route) => {
     return route.method === request.method && route.path.test(request.url);
