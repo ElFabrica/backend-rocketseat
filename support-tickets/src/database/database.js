@@ -39,4 +39,10 @@ export class Database {
     }
     return data;
   }
+  update(table, id, Database) {
+    const rowIndex = this.#database[table].findIndex((row) => {
+      row.id === id;
+    });
+    console.log(rowIndex);
+  }
 }
