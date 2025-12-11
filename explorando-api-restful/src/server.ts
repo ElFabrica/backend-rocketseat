@@ -1,11 +1,17 @@
 import express from "express";
-
 const PORT = 3333;
-
 const app = express();
+app.use(express.json());
 
-app.get("/x", (request, response) => {
-  response.send("hello world with Express ");
+app.get("/products", (request, response) => {
+  const { page, limit } = request.query;
+  response.send(`página ${page} com limite ${limit} `);
+});
+
+app.post("/products", (request, response) => {
+  const { name, price } = request.body;
+
+  response.send(`Produto ${name} custa ${price}`);
 });
 
 app.listen(PORT, () => {
