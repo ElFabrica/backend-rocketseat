@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { threadCpuUsage } from "node:process";
 
 const DATABASE_PATH = new URL("db.json", import.meta.url);
 
@@ -39,10 +40,26 @@ export class Database {
     }
     return data;
   }
-  update(table, id, Database) {
-    const rowIndex = this.#database[table].findIndex((row) => {
-      row.id === id;
-    });
+  update(table, id, data) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
     console.log(rowIndex);
+
+    if (rowIndex > -1) {
+      this.#database[table][rowIndex] = {
+        ...this.#database[table][rowIndex],
+        ...data,
+      };
+
+      this.#persist();
+    }
+  }
+  delete(table, id) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      //Método splice modifica o array removendo o item entre esses indices selecionados
+      this.#database[table].splice(rowIndex, 1);
+      this.#persist();
+    }
   }
 }
