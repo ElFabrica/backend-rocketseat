@@ -1,5 +1,6 @@
 import { create } from "../controllers/tickets/create.js";
 import { index } from "../controllers/tickets/index.js";
+import { update } from "../controllers/tickets/update.js";
 
 export const tikets = [
   {
@@ -11,5 +12,10 @@ export const tikets = [
     method: "GET",
     path: "/tickets",
     controller: index,
+  },
+  {
+    method: "PUT",
+    path: "/tickets/:id",
+    controller: update,
   },
 ];
