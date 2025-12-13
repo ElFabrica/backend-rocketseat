@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { AppError } from "../utils/app-error";
 
 export class ProductsController {
   index(request: Request, response: Response) {
@@ -8,7 +9,20 @@ export class ProductsController {
   create(request: Request, response: Response) {
     const { name, price } = request.body;
 
-    // response.send(`Produto ${name} custa ${price}`);
+    if (!name) {
+      throw new AppError("Nome do produto é obrigatório");
+    }
+
+    if (name.trim().lenght < 6) {
+      throw new AppError("Nome do produto muito curto");
+    }
+    if (!price) {
+      throw new AppError("preço do produto é obrigatório");
+    }
+    if (price < 0) {
+      throw new AppError("preço do produto não pode ser negativo");
+    }
+
     response.status(201).json({ name, price, user_id: request.user_id });
   }
 }
