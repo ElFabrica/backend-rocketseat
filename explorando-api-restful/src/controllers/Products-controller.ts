@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { AppError } from "../utils/app-error";
+import { z } from "zod";
 
 export class ProductsController {
   index(request: Request, response: Response) {
@@ -7,21 +8,28 @@ export class ProductsController {
     response.send(`página ${page} com limite ${limit} `);
   }
   create(request: Request, response: Response) {
-    const { name, price } = request.body;
+    const bodySchema = z.object({
+      name: z
+        .string({ message: "nome é obrigatório" })
+        .trim()
+        .min(6, "Nome muito curto"), //Hoje é message
+      price: z.number({ message: "preço é um number" }).positive().nullish(),
+    });
 
-    if (!name) {
-      throw new AppError("Nome do produto é obrigatório");
-    }
+    const { name, price } = bodySchema.parse(request.body);
 
-    if (name.trim().lenght < 6) {
-      throw new AppError("Nome do produto muito curto");
-    }
-    if (!price) {
-      throw new AppError("preço do produto é obrigatório");
-    }
-    if (price < 0) {
-      throw new AppError("preço do produto não pode ser negativo");
-    }
+    // if (!name) {
+    //   throw new AppError("Nome do produto é obrigatório");
+    // }
+    // if (name.trim().lenght < 6) {
+    //   throw new AppError("Nome do produto muito curto");
+    // }
+    // if (!price) {
+    //   throw new AppError("preço do produto é obrigatório");
+    // }
+    // if (price < 0) {
+    //   throw new AppError("preço do produto não pode ser negativo");
+    // }
 
     response.status(201).json({ name, price, user_id: request.user_id });
   }
