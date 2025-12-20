@@ -11,11 +11,11 @@ export default {
   },
   useNullAsDefault: true,
   migrations: {
-    extentions: "ts",
+    extensions: "ts",
     directory: "./src/database/migrations",
   },
   seeds: {
-    extentions: "ts",
+    extensions: "ts",
     directory: "./src/database/seeds",
   },
 };
