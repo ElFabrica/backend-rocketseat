@@ -3,9 +3,9 @@ import { Router } from "express";
 
 const productRoutes = Router();
 const productController = new ProductController();
-productRoutes.get("/products", productController.index);
-productRoutes.post("/products", productController.create);
-productRoutes.put("/products/:id", productController.update);
-productRoutes.delete("/products/:id", productController.remove);
+productRoutes.get("/", productController.index);
+productRoutes.post("/", productController.create);
+productRoutes.put("/:id", productController.update);
+productRoutes.delete("/:id", productController.remove);
 
 export { productRoutes };
