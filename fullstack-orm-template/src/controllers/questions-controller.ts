@@ -1,21 +1,21 @@
-import { Request, Response } from "express"
+import { Request, Response } from "express";
 
 class QuestionsController {
   async index(request: Request, response: Response) {
-    return response.json()
+    return response.json();
   }
 
   async create(request: Request, response: Response) {
-    return response.status(201).json()
+    return response.status(201).json();
   }
 
   async update(request: Request, response: Response) {
-    return response.json()
+    return response.json();
   }
 
   async remove(request: Request, response: Response) {
-    return response.json()
+    return response.json();
   }
 }
 
-export { QuestionsController }
+export { QuestionsController };
